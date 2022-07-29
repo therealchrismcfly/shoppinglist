@@ -1,15 +1,16 @@
 import AddItem from "./components/AddItem";
 import StyledShoppingItem from "./components/StyledShoppingItem";
-import StyledMain from "./components/StyledMain";
 import StyledSuggestionItem from "./components/StyledSuggestionItem";
 import React, { useEffect } from "react";
 import useStore from "./useStore";
+import "./App.css";
 
 function App() {
   const items = useStore((state) => state.items);
   const deleteItem = useStore((state) => state.deleteItem);
   const fetchSomething = useStore((state) => state.fetchSomething);
   const fetchedData = useStore((state) => state.fetchedData);
+  const addItem = useStore((state) => state.addItem); //useStore
 
   /*Daten aus API ziehen*/
   useEffect(() => {
@@ -17,9 +18,10 @@ function App() {
   }, [fetchSomething]);
 
   return (
-    <StyledMain>
+    <div className="wrapper">
       <h1>Einkaufsliste</h1>
-      <ul>
+
+      <ul className="shoppinglist">
         {items.map((item) => {
           console.log(item.name);
           return (
@@ -35,16 +37,21 @@ function App() {
       </ul>
       <h2>Was willst du einkaufen?</h2>
       <AddItem />
-      <ul>
+      <ul className="suggestions">
         {fetchedData.data.map((data) => {
           return (
-            <StyledSuggestionItem key={data._id}>
-              {data.name.de}
+            <StyledSuggestionItem
+              key={data._id}
+              onClick={() => {
+                addItem(data.name.en);
+              }}
+            >
+              {data.name.en}
             </StyledSuggestionItem>
           );
         })}
       </ul>
-    </StyledMain>
+    </div>
   );
 }
 

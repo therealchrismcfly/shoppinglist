@@ -16,7 +16,7 @@ const useStore = create((set) => {
 
     items: [
       //1. einfacher State (Initialwert von ursprünglich UseState)
-      { id: nanoid(), name: "Zustand" },
+      { id: nanoid(), name: "Peanutbutter" },
       { id: nanoid(), name: "Jelly" },
     ],
 
