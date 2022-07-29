@@ -3,7 +3,7 @@ import { nanoid } from "nanoid";
 
 const useStore = create((set) => {
   return {
-    fetchedData: { results: [] },
+    fetchedData: { data: [] },
     fetchSomething: async (url) => {
       try {
         const response = await fetch(url);
