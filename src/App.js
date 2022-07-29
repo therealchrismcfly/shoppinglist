@@ -1,19 +1,12 @@
 import AddItem from "./components/AddItem";
 import StyledShoppingItem from "./components/StyledShoppingItem";
 import StyledMain from "./components/StyledMain";
-import React, { useState } from "react";
-import { nanoid } from "nanoid";
+import React from "react";
+import useStore from "./useStore";
 
 function App() {
-  const [items, setItems] = useState([
-    { id: nanoid(), name: "Peanutbutter" },
-    { id: nanoid(), name: "Jelly" },
-  ]);
-
-  function handleItems(name) {
-    setItems([...items, { id: nanoid(), name }]);
-  }
-
+  const items = useStore((state) => state.items);
+  const deleteItem = useStore((state) => state.deleteItem);
   return (
     <StyledMain>
       <h1>Einkaufsliste</h1>
@@ -22,13 +15,8 @@ function App() {
           console.log(item.name);
           return (
             <StyledShoppingItem
-              key={item._id}
               onClick={() => {
-                setItems(
-                  items.filter((item_) => {
-                    return item_.id !== item.id;
-                  })
-                );
+                deleteItem(item.id);
               }}
             >
               {item.name}
@@ -37,7 +25,7 @@ function App() {
         })}
       </ul>
       <h2>Was willst du einkaufen?</h2>
-      <AddItem onItem={handleItems} />
+      <AddItem />
     </StyledMain>
   );
 }

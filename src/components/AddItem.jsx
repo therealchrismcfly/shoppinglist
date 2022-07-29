@@ -1,15 +1,16 @@
 import StyledSearchBar from "./StyledSearchBar";
 import React from "react";
 import { useState } from "react";
+import useStore from "../useStore.js";
 
-export default function AddItem({ onItem }) {
+export default function AddItem() {
   const [inputValue, setInputValue] = useState("");
-
+  const addItem = useStore((state) => state.addItem); //useStore
   return (
     <StyledSearchBar
       onSubmit={(event) => {
         event.preventDefault();
-        onItem(inputValue);
+        addItem(inputValue);
       }}
     >
       <label htmlFor="inputItem">
