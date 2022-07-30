@@ -1,15 +1,11 @@
 .wrapper {
   background-color: #dcc6ff;
   padding: 30px;
+  width: 600px;
 }
 
 .shoppinglist {
   display: flex;
   flex-wrap: wrap;
   margin: 40px 0;
-}
-
-.suggestions {
-  display: flex;
-  flex-wrap: wrap;
 }
