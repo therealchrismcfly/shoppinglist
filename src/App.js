@@ -8,7 +8,7 @@ import "./App.css";
 function App() {
   const items = useStore((state) => state.items);
   const deleteItem = useStore((state) => state.deleteItem);
-  const fetchedData = useStore((state) => state.fetchedData);
+  const suggestions = useStore((state) => state.suggestions);
   const addItem = useStore((state) => state.addItem); //useStore
 
   return (
@@ -32,7 +32,7 @@ function App() {
       <h2>Was willst du einkaufen?</h2>
       <AddItem />
       <ul className="shoppinglist">
-        {fetchedData.data.map((data) => {
+        {suggestions.map((data) => {
           return (
             <StyledSuggestionItem
               key={data._id}

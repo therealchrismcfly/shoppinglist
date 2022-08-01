@@ -9,11 +9,19 @@ export default function AddItem() {
   const addItem = useStore((state) => state.addItem); //useStore
   const fetchSomething = useStore((state) => state.fetchSomething);
   const fetchedData = useStore((state) => state.fetchedData);
+  const setSuggestions = useStore((state) => state.setSuggestions);
 
   /*Daten aus API ziehen*/
   useEffect(() => {
     fetchSomething("https://fetch-me.vercel.app/api/shopping/items");
   }, [fetchSomething]);
+
+  useEffect(() => {
+    const results = search(inputValue, fetchedData.data, {
+      keySelector: (data) => data.name.en,
+    });
+    setSuggestions(results);
+  }, [fetchedData, inputValue, setSuggestions]);
 
   return (
     <StyledSearchBar
@@ -30,11 +38,7 @@ export default function AddItem() {
           required
           value={inputValue}
           onChange={(event) => {
-            setInputValue(
-              search(event.target.value, fetchedData, {
-                keySelector: (data) => data.name.en,
-              })
-            );
+            setInputValue(event.target.value);
           }}
         ></input>
       </label>
